@@ -45,13 +45,18 @@ def main():
         for i in range(args.num_rollouts):
             print('iter', i)
             obs = env.reset()
+            # print(type(obs))
+            # print(obs)
+            # print(policy_fn(obs[None,:])[0])
             done = False
             totalr = 0.
             steps = 0
             while not done:
+                # print('obs[None,:] = ' + str(obs[None,:]))
+                # print('obs = ' + str(obs))
                 action = policy_fn(obs[None,:])
                 observations.append(obs)
-                actions.append(action)
+                actions.append(action[0])
                 obs, r, done, _ = env.step(action)
                 totalr += r
                 steps += 1
