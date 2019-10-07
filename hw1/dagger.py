@@ -64,8 +64,8 @@ def main():
                     # print(obs.shape)
                     totalr += r
                     steps += 1
-                    if args.render:
-                        env.render()
+                    # if args.render:
+                    #     env.render()
                     if steps % 100 == 0: print("%i/%i"%(steps, max_steps))
                     if steps >= max_steps:
                         break
