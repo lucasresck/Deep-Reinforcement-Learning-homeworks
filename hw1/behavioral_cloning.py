@@ -9,7 +9,6 @@ def main():
     
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('expert_policy_file', type=str)
     parser.add_argument('envname', type=str)
     parser.add_argument('--render', action='store_true')
     parser.add_argument("--max_timesteps", type=int)
@@ -61,7 +60,10 @@ def main():
             if steps % 100 == 0: print("%i/%i"%(steps, max_steps))
             if steps >= max_steps:
                 break
-        returns.append(totalr)    
+        returns.append(totalr) 
+
+    with open(os.path.join('behavioral_cloning', args.envname + '.pkl'), 'wb') as f:
+        pickle.dump(model, f, pickle.HIGHEST_PROTOCOL)   
     
 if __name__ == '__main__':
     main()
