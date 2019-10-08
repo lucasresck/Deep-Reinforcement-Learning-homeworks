@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 
 """
-Code to load an expert policy and generate roll-out data for behavioral cloning.
+Code to load an expert policy and generate roll-out data for behavioral
+cloning.
 Example usage:
     python run_expert.py experts/Humanoid-v1.pkl Humanoid-v1 --render \
             --num_rollouts 20
 
-Author of this script and included expert policies: Jonathan Ho (hoj@openai.com)
+Author of this script and included expert policies:
+    Jonathan Ho (hoj@openai.com)
 """
 
 import os
@@ -17,7 +19,9 @@ import tf_util
 import gym
 import load_policy
 
+
 def main():
+
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('expert_policy_file', type=str)
@@ -35,7 +39,6 @@ def main():
     with tf.Session():
         tf_util.initialize()
 
-        import gym
         env = gym.make(args.envname)
         max_steps = args.max_timesteps or env.spec.timestep_limit
 
@@ -54,7 +57,7 @@ def main():
             while not done:
                 # print('obs[None,:] = ' + str(obs[None,:]))
                 # print('obs = ' + str(obs))
-                action = policy_fn(obs[None,:])
+                action = policy_fn(obs[None, :])
                 observations.append(obs)
                 actions.append(action[0])
                 obs, r, done, _ = env.step(action)
@@ -62,7 +65,8 @@ def main():
                 steps += 1
                 if args.render:
                     env.render()
-                if steps % 100 == 0: print("%i/%i"%(steps, max_steps))
+                if steps % 100 == 0:
+                    print("%i/%i" % (steps, max_steps))
                 if steps >= max_steps:
                     break
             returns.append(totalr)
@@ -74,8 +78,10 @@ def main():
         expert_data = {'observations': np.array(observations),
                        'actions': np.array(actions)}
 
-        with open(os.path.join('expert_data', args.envname + '.pkl'), 'wb') as f:
+        with open(os.path.join('expert_data', args.envname + '.pkl'),
+                  'wb') as f:
             pickle.dump(expert_data, f, pickle.HIGHEST_PROTOCOL)
+
 
 if __name__ == '__main__':
     main()
