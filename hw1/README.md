@@ -37,7 +37,7 @@ The work here is:
 
 The commands used bellow are for Linux terminal.
 
-If you wanna see only the results, go to **Results**. If you wanna see only one result (the coolest), run this:
+If you wanna see only the results, go to **Results**. If you wanna see only one result (the coolest one), run this:
 
 ```python run_agent.py dagger Humanoid-v2 --render --num_rollouts 5```
 
