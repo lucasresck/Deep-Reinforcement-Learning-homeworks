@@ -96,3 +96,6 @@ gym/
 
 # swig
 swig-3.0.12/
+
+get-pip.py
+data/
